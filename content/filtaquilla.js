@@ -112,6 +112,7 @@
     removeFlaggedEnabled = false,
     noBiffEnabled = false,
     markUnreadEnabled = false,
+    markThreadReadEnabled = false,
     markRepliedEnabled = false,
     copyAsReadEnabled = false,
     launchFileEnabled = false,
@@ -309,6 +310,29 @@
         return null;
       },
     }; // end markUnread
+
+    // mark thread as read
+    self.markThreadRead = {
+      id: "filtaquilla@mesquilla.com#markThreadRead",
+      name: util.getBundleString("fq.markThreadRead"),
+      applyAction: function (aMsgHdrs, _aActionValue, _aListener, _aType, _aMsgWindow) {
+        for (const msgHdr of aMsgHdrs) {
+          const folder = msgHdr.folder;
+          const thread = folder.msgDatabase.getThreadContainingMsgHdr(msgHdr);
+          if (thread) {
+            folder.markThreadRead(thread);
+          } else {
+            folder.markMessagesRead([msgHdr], true);
+          }
+        }
+      },
+      isValidForType: function (_type, _scope) {
+        return markThreadReadEnabled;
+      },
+      validateActionValue: function (_value, _folder, _type) {
+        return null;
+      },
+    };
 
     // mark as replied
     self.markReplied = {
@@ -2431,6 +2455,10 @@
     } catch {;}
 
     try {
+      markThreadReadEnabled = prefs.getBoolPref("markThreadRead.enabled");
+    } catch {;}
+
+    try {
       markRepliedEnabled = prefs.getBoolPref("markReplied.enabled");
     } catch {;}
 
@@ -2579,6 +2607,7 @@
     filterService.addCustomAction(self.removeFlagged);
     filterService.addCustomAction(self.noBiff);
     filterService.addCustomAction(self.markUnread);
+    filterService.addCustomAction(self.markThreadRead);
     filterService.addCustomAction(self.markReplied);
     filterService.addCustomAction(self.copyAsRead);
     filterService.addCustomAction(self.launchFile);

@@ -13,6 +13,7 @@ pref("extensions.filtaquilla.subjectSuffix.enabled", false);
 pref("extensions.filtaquilla.removeKeyword.enabled", false);
 pref("extensions.filtaquilla.removeFlagged.enabled", false);
 pref("extensions.filtaquilla.markUnread.enabled", false);
+pref("extensions.filtaquilla.markThreadRead.enabled", false);
 pref("extensions.filtaquilla.markReplied.enabled", false);
 pref("extensions.filtaquilla.noBiff.enabled", false);
 pref("extensions.filtaquilla.copyAsRead.enabled", false);

@@ -179,6 +179,9 @@
   "fq.markReplied.access": {
     "message": "E"
   },
+  "fq.markThreadRead": {
+    "message": "Mark Thread As Read"
+  },
   "fq.markUnread": {
     "message": "Mark As Unread"
   },
